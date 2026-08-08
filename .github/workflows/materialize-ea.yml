@@ -1,0 +1,47 @@
+name: Materialize EA source
+
+on:
+  push:
+    branches:
+      - work/gold-reaper-marketclose-sessionfix
+    paths:
+      - '.github/workflows/materialize-ea.yml'
+      - '.upload/**'
+      - 'reconstruct_source.py'
+      - 'deobfuscate_source.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: work/gold-reaper-marketclose-sessionfix
+          fetch-depth: 0
+
+      - name: Reconstruct and deobfuscate EA
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 deobfuscate_source.py
+          test -f "The Gold Reaper OderSend v4.5_MarketClose_SessionFix_Deobfuscated.mq5"
+          sha256sum "The Gold Reaper OderSend v4.5_MarketClose_SessionFix_Deobfuscated.mq5"
+
+      - name: Commit materialized MQ5
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "The Gold Reaper OderSend v4.5_MarketClose_SessionFix_Deobfuscated.mq5"
+          if git diff --cached --quiet; then
+            echo "EA source already materialized"
+            exit 0
+          fi
+          git commit -m "Materialize deobfuscated Gold Reaper EA source"
+          git push origin HEAD:work/gold-reaper-marketclose-sessionfix
