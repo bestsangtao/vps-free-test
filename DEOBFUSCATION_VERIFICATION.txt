@@ -1,0 +1,39 @@
+THE GOLD REAPER V4.5 MARKETCLOSE SESSIONFIX — DEOBFUSCATION VERIFICATION
+
+Source:
+  The Gold Reaper OderSend v4.5_MarketClose_SessionFix.mq5
+Output:
+  The_Gold_Reaper_OderSend_v4.5_MarketClose_SessionFix_Deobfuscated.mq5
+
+SOURCE SHA-256:
+  28a16045d0bfbba04095ea17aa5325cf5361c7ea1abde7b21bb7a774c8c09118
+OUTPUT SHA-256:
+  95b24aee93dbfa9eaee2b15a8128eab44886e06501b9f6f04b7da04b1ec5c5cb
+
+SCOPE
+- Obfuscated identifiers replaced: 743
+- Functions renamed: 42
+- Global identifiers renamed: 402
+- Function arguments renamed: 11
+- Local identifiers renamed: 84
+- Temporary/scratch identifiers renamed: 204
+- Semantic/high-confidence names: 157
+- Structural-safe neutral names: 586
+
+INVARIANTS
+- Exact reverse-renaming reproduces original source bytes, including BOM: PASS
+- Source line count: 10701
+- Output line count: 10701
+- Line count unchanged: PASS
+- Residual obfuscated executable identifiers: 0
+- No variable/declaration was intentionally removed: PASS
+- No numeric/string/date literal was intentionally changed: PASS (identifier-token-only rewrite)
+- No operator/branch/loop/call order/statement order was intentionally changed: PASS (identifier-token-only rewrite)
+- Comments and string/character/date literal regions are never rewritten by the lexer: PASS
+- Delimiter counts before/after: {} 1573/1573, () 5491/5491, [] 911/911: PASS
+
+NOTES
+- Exact original author-chosen names cannot be recovered from an already obfuscated source.
+- High-confidence names use prior verified semantic mapping and direct read/write/call context.
+- Ambiguous/reused/dead identifiers are retained and assigned neutral type/index-safe names rather than guessed semantics.
+- MetaEditor is not available in the current runtime, so compile/Strategy Tester verification remains external.
